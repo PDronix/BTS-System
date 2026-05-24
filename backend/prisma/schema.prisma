@@ -1,0 +1,108 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id @default(uuid())
+  fullName      String
+  username      String         @unique
+  email         String         @unique
+  password      String
+  role          Role
+  reportedBugs  Bug[]          @relation("Reporter")
+  assignedBugs  Bug[]          @relation("Assignee")
+  notifications Notification[]
+  createdAt     DateTime       @default(now())
+}
+
+model Project {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  modules     Module[]
+  bugs        Bug[]
+  createdAt   DateTime @default(now())
+}
+
+model Module {
+  id        String   @id @default(uuid())
+  name      String
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id])
+  bugs      Bug[]
+  createdAt DateTime @default(now())
+}
+
+model Bug {
+  id          String    @id @default(uuid())
+  title       String
+  description String
+  severity    Severity
+  priority    Priority
+  status      Status    @default(NEW)
+  environment String?
+  version     String?
+  dueDate     DateTime?
+  attachments String[]
+  projectId   String
+  moduleId    String?
+  reporterId  String?
+  assigneeId  String?
+  project     Project   @relation(fields: [projectId], references: [id])
+  module      Module?   @relation(fields: [moduleId], references: [id])
+  reporter    User?     @relation("Reporter", fields: [reporterId], references: [id])
+  assignee    User?     @relation("Assignee", fields: [assigneeId], references: [id])
+  createdAt   DateTime  @default(now())
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  type      String
+  title     String
+  message   String
+  isRead    Boolean  @default(false)
+  bugId     String?
+  createdAt DateTime @default(now())
+}
+
+enum Role {
+  ADMIN
+  MANAGER
+  DEVELOPER
+  TESTER
+  USER
+}
+
+enum Severity {
+  CRITICAL
+  HIGH
+  MEDIUM
+  LOW
+}
+
+enum Priority {
+  HIGHEST
+  HIGH
+  MEDIUM
+  LOW
+  LOWEST
+}
+
+enum Status {
+  NEW
+  ASSIGNED
+  IN_PROGRESS
+  FIXED
+  TESTING
+  VERIFIED
+  CLOSED
+  REOPENED
+}
