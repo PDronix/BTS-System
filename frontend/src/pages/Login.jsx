@@ -601,7 +601,7 @@ export default function Login() {
               </div>
               <div className="lr-register">
                 No account?{' '}
-                <a href="/register">Create one &rarr;</a>
+                <a href="/#/register">Create one &rarr;</a>
               </div>
             </div>
           </div>
