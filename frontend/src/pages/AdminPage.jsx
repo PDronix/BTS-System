@@ -266,7 +266,7 @@ export default function AdminPage() {
               <span className="adm-uname">{user.fullName}</span>
               <span className="adm-role-badge">{role}</span>
             </div>
-            <a href="/dashboard" className="btn-back">← Dashboard</a>
+            <a href="/#/dashboard" className="btn-back">← Dashboard</a>
           </div>
         </div>
 
