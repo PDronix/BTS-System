@@ -308,7 +308,7 @@ export default function Register() {
                 <div className="success-icon">✅</div>
                 <h3>Account created!</h3>
                 <p>Your account has been successfully created.<br />You can now sign in.</p>
-                <a href="/" className="btn-go-login">Go to Login →</a>
+                <a href="/#/" className="btn-go-login">Go to Login →</a>
               </div>
             ) : (
               <>
@@ -355,7 +355,7 @@ export default function Register() {
                       <span className="input-icon">🎭</span>
                       <select name="role" className="form-select" value={form.role} onChange={handleChange}>
                         <option value="DEVELOPER">Developer</option>
-                        <option value="TESTER">User</option>
+                        <option value="USER">User</option>
                         <option value="MANAGER">Manager</option>
                         <option value="ADMIN">Admin</option>
                       </select>
@@ -408,7 +408,7 @@ export default function Register() {
                 </form>
 
                 <div className="login-link">
-                  Already have an account? <a href="/">Sign in</a>
+                  Already have an account? <a href="/#/">Sign in</a>
                 </div>
               </>
             )}
