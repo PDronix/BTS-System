@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
@@ -10,14 +10,14 @@ function App() {
   const canAdmin = ['ADMIN','MANAGER'].includes(user.role);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/"          element={token ? <Navigate to="/dashboard"/> : <Login/>}/>
         <Route path="/register"  element={token ? <Navigate to="/dashboard"/> : <Register/>}/>
         <Route path="/dashboard" element={token ? <Dashboard/> : <Navigate to="/"/>}/>
         <Route path="/admin"     element={token && canAdmin ? <AdminPage/> : <Navigate to="/"/>}/>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
