@@ -14,16 +14,23 @@ function PublicRoute({ children }) {
   return token ? <Navigate to="/dashboard"/> : children;
 }
 
-function App() {
+function AdminRoute({ children }) {
+  const token = localStorage.getItem('token');
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   const canAdmin = ['ADMIN','MANAGER'].includes(user.role);
+  if (!token) return <Navigate to="/"/>;
+  if (!canAdmin) return <Navigate to="/dashboard"/>;
+  return children;
+}
+
+function App() {
   return (
     <HashRouter>
       <Routes>
         <Route path="/"          element={<PublicRoute><Login/></PublicRoute>}/>
         <Route path="/register"  element={<PublicRoute><Register/></PublicRoute>}/>
         <Route path="/dashboard" element={<PrivateRoute><Dashboard/></PrivateRoute>}/>
-        <Route path="/admin"     element={<PrivateRoute>{canAdmin ? <AdminPage/> : <Navigate to="/"/>}</PrivateRoute>}/>
+        <Route path="/admin"     element={<AdminRoute><AdminPage/></AdminRoute>}/>
       </Routes>
     </HashRouter>
   );
