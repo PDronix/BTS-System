@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -5,7 +6,7 @@ import Dashboard from './pages/Dashboard';
 import AdminPage from './pages/AdminPage';
 
 function App() {
-  const token = localStorage.getItem('token');
+  const [token] = useState(localStorage.getItem('token'));
   const user  = JSON.parse(localStorage.getItem('user') || '{}');
   const canAdmin = ['ADMIN','MANAGER'].includes(user.role);
 
