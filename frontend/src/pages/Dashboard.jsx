@@ -474,7 +474,7 @@ export default function Dashboard() {
               <span className="db-uname">{user.fullName||'User'}</span>
               <span className="db-urole">{role}</span>
             </div>
-            {canAssign && <a href="/admin" style={{padding:'7px 14px',borderRadius:'8px',background:'rgba(230,119,0,0.12)',border:'1px solid rgba(230,119,0,0.3)',color:'#e67700',fontSize:'13px',fontWeight:600,textDecoration:'none'}}>⚙ Admin</a>}
+            {canAssign && <a href="/#/admin" style={{padding:'7px 14px',borderRadius:'8px',background:'rgba(230,119,0,0.12)',border:'1px solid rgba(230,119,0,0.3)',color:'#e67700',fontSize:'13px',fontWeight:600,textDecoration:'none'}}>⚙ Admin</a>}
             <button className="btn-logout" onClick={()=>{localStorage.clear();window.location.href='/'}}>Sign out</button>
           </div>
         </div>
